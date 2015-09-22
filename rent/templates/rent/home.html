@@ -30,76 +30,18 @@
 						</tr>
 					</thead>
 					<tbody>
+						{% for supply in supplies %}
 						<tr>
-							<td>Водопостачання</td>
-							<td><a target="__blank"
-								href="http://water.km.ua">Хмельницьковоканал</a></td>
-							<td>01.10.2015</td>
-							<td>
-								ХВ-1: 100<br>
-								ХВ-2: 50<br>
-								ГВ-1: 120<br>
-								ГВ-2: 150<br>
-							</td>
-							<td><span style="color: green">0грн</span></td>
-							<td>
-								<div class="dropdown">
-									<button class="btn btn-default dropdown-toggle" 
-										type="button" id="dropdownMenu1" data-toggle="dropdown" 
-										aria-haspopup="true" aria-expanded="true">
-										Оберіть
-										<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										<li><a href="#">Діючі тарифи</a></li>
-										<li><a href="#">Оновити показники</a></li>
-										<li><a href="#">Видалити послугу</a></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>Каналізація</td>
-							<td><a target="__blank"
-								href="http://water.km.ua">Хмельницьковоканал</a></td>
-							<td>01.10.2015</td>
-							<td>
-								ХВ-1: 100<br>
-								ХВ-2: 50<br>
-								ГВ-1: 120<br>
-								ГВ-2: 150<br>
-							</td>
-							<td><span style="color: green">0грн</span></td>
-							<td>
-								<div class="dropdown">
-									<button class="btn btn-default dropdown-toggle" 
-										type="button" id="dropdownMenu1" data-toggle="dropdown" 
-										aria-haspopup="true" aria-expanded="true">
-										Оберіть
-										<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										<li><a href="#">Діючі тарифи</a></li>
-										<li><a href="#">Оновити показники</a></li>
-										<li><a href="#">Видалити послугу</a></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>Електропостачання</td>
+						<td>{{ supply.product_name }}</td>
 							<td>
 								<a target="__blank"
-									href="https://pa.oblenergo.km.ua/
-									Account/Login?ReturnUrl=%2FCustomerCard">
-									Хмельницькобленерго
+									href="{{ supply.provider_site }}">
+									{{ supply.provider_name }}
 								</a>
 							</td>
-							<td>01.10.2015</td>
-							<td>
-								№1: 7500
-							</td>
-							<td><span style="color: green">0грн</span></td>
+							<td>{{ supply.date_change }}</td>
+							<td>{{ supply.counter_1_name }}: {{ supply.counter_1_indicator }}</td>
+							<td><span style="color: green">{{ supply.arrears }}грн</span></td>
 							<td>
 								<div class="dropdown">
 									<button class="btn btn-default dropdown-toggle" 
@@ -116,33 +58,7 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<td>Газопостачання</td>
-							<td>
-								<a target="__blank"
-									href="http://km.104.ua/">
-									Хмельницькгаз
-								</a>
-							</td>
-							<td>01.10.2015</td>
-							<td>Відсутній лічильник</td>
-							<td><span style="color: green">0грн</span></td>
-							<td>
-								<div class="dropdown">
-									<button class="btn btn-default dropdown-toggle" 
-										type="button" id="dropdownMenu1" data-toggle="dropdown" 
-										aria-haspopup="true" aria-expanded="true">
-										Оберіть
-										<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										<li><a href="#">Діючі тарифи</a></li>
-										<li><a href="#">Оновити показники</a></li>
-										<li><a href="#">Видалити послугу</a></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
+						{% endfor %}
 					</tbody>
 				</table>
 			</div>

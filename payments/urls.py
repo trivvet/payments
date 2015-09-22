@@ -20,5 +20,5 @@ from rent import views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls), name='admin'),
 ]
