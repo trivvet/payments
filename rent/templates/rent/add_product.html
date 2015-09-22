@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<title>Комунальний довідник</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/
+			bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/main.css">
+</head>
+<body>
+	<!--Main content-->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1>Додаток для розрахунку комунальних платежів</h1>
+			</div>	
+		</div>
+		<div class='row'>
+			<div class='col-sm-2'></div>
+			<div class="col-sm-10">
+				<h2>Додавання послуги</h2>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-12'>
+				<form class="form-horizontal">
+				  <div class="form-group">
+				    <label for="inputProduct" class="col-sm-2 control-label">Послуга</label>
+				    <div class="col-sm-10">
+				      <select class="form-control" id='inputProduct'>
+						<option>Водопостачання</option>
+						<option>Каналізація</option>
+						<option>Електропостачання</option>
+						<option>Газопостачання</option>
+						<option>Вивіз сміття</option>
+					  </select>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="inputProvider" class="col-sm-2 control-label">Постачальник</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="inputProvider">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				      <button type="submit" class="btn btn-primary">Додати</button>
+				      <button type="submit" class="btn btn-link">Скасувати</button>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+		<!--Footer-->
+		<div class="row" id="footer">
+			<div class="col-sm-12">&copy; 2015 Сервіс Звірки Комунальних Платежів Версія 0.2.1А</div>
+		</div>
+	</div>
+	
+	<!--JavaScript-->
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -18,6 +18,15 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
+				{% if not supplies %}
+				<div class="jumbotron">
+					<h1>Додай нову послугу</h1>
+					<p>Для того щоб скористатись сервісом, потрібно додати першу послугу</p>
+					<p><a class="btn btn-primary btn-lg" 
+						href="{% url 'add_product' %}" role="button">Додати</a>
+					</p>
+				</div>
+				{% else %}
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -61,11 +70,12 @@
 						{% endfor %}
 					</tbody>
 				</table>
+			{% endif %}
 			</div>
 		</div>
 		<!--Footer-->
 		<div class="row" id="footer">
-			<div class="col-sm-12">&copy; 2015 Сервіс Звірки Комунальних Платежів Версія 0.1.2А</div>
+			<div class="col-sm-12">&copy; 2015 Сервіс Звірки Комунальних Платежів Версія 0.2.1А</div>
 		</div>
 	</div>
 	
