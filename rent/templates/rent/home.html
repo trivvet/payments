@@ -1,105 +1,81 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-	<title>Комунальний довідник</title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/
-			bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../static/main.css">
-</head>
-<body>
-	
-	<!--Main content-->
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<h1>Додаток для розрахунку комунальних платежів</h1>
-			</div>	
+{% extends "rent/base.html" %}
+
+{% block content %}		
+<div class="row">
+	<div class="col-sm-12">
+		{% if not supplies %}
+		<div class="jumbotron">
+			<h1>Додай нову послугу</h1>
+			<p>Для того щоб скористатись сервісом, потрібно додати першу послугу</p>
+			<p><a class="btn btn-primary btn-lg" 
+				href="{% url 'add_product' %}" role="button">Додати</a>
+			</p>
 		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				{% if not supplies %}
-				<div class="jumbotron">
-					<h1>Додай нову послугу</h1>
-					<p>Для того щоб скористатись сервісом, потрібно додати першу послугу</p>
-					<p><a class="btn btn-primary btn-lg" 
-						href="{% url 'add_product' %}" role="button">Додати</a>
-					</p>
-				</div>
-				{% else %}
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>Назва послуги</th>
-							<th>Постачальник</th>
-							<th>Дата оновлення</th>
-							<th>Показники лічильника</th>
-							<th>Стан розрахунку</th>
-							<th>Дії</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for supply in supplies %}
-						<tr>
-						<td>{{ supply.product_name }}</td>
-							<td>
-								<a target="__blank"
-									href="{{ supply.provider_site }}">
-									{{ supply.provider_name }}
-								</a>
-							</td>
-							<td>{{ supply.date_change }}</td>
-							{% if supply.counter_1_name %}
-							<td>{{ supply.counter_1_name }}: {{ supply.counter_1_indicator }}</td>
-							{% else %}
-							<td>Відсутній лічильник </td>
-							{% endif %}
-							<td><span style="color: 
-								{% if supply.arrears > 0 %}green
-								{% else %}red{% endif %}">
-									{{ supply.arrears }}грн
-								</span></td>
-							<td>
-								<div class="dropdown">
-									<button class="btn btn-default dropdown-toggle" 
-										type="button" id="dropdownMenu1" data-toggle="dropdown" 
-										aria-haspopup="true" aria-expanded="true">
-										Оберіть
-										<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										<li><a href="#">Діючі тарифи</a></li>
-										<li><a href="#">Оновити показники</a></li>
-										<li><a href="{% url 'delete_product' supply.id %}">Видалити послугу</a></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-						{% endfor %}
-						<tr>
-							<td></td>
-							<td colspan='3'>
-							  <a role="button" href="{% url 'add_product' %}"
-							    class="btn btn-primary btn-lg btn-block">
-								 Додати нову послугу
-							  </a>
-							</td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
-			{% endif %}
-			</div>
-		</div>
-		<!--Footer-->
-		<div class="row" id="footer">
-			<div class="col-sm-12">&copy; 2015 Сервіс Звірки Комунальних Платежів Версія 0.2.2А</div>
-		</div>
+		{% else %}
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Назва послуги</th>
+					<th>Постачальник</th>
+					<th>Дата оновлення</th>
+					<th>Показники лічильника</th>
+					<th>Стан розрахунку</th>
+					<th>Дії</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for supply in supplies %}
+				<tr>
+				<td>{{ supply.product_name }}</td>
+					<td>
+						<a target="__blank"
+							href="{{ supply.provider_site }}">
+							{{ supply.provider_name }}
+						</a>
+					</td>
+					<td>{{ supply.date_change }}</td>
+					{% if supply.counter_1_name %}
+					<td>{{ supply.counter_1_name }}: {{ supply.counter_1_indicator }}</td>
+					{% else %}
+					<td>Відсутній лічильник </td>
+					{% endif %}
+					<td><span style="color: 
+						{% if supply.arrears > 0 %}green
+						{% elif supply.arrears < 0 %}red{% endif %}">
+							{{ supply.arrears }}грн
+						</span></td>
+					<td>
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" 
+								type="button" id="dropdownMenu1" data-toggle="dropdown" 
+								aria-haspopup="true" aria-expanded="true">
+								Оберіть
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li><a href="#">Діючі тарифи</a></li>
+								<li><a href="#">Оновити показники</a></li>
+								<li><a href="{% url 'delete_product' supply.id %}">Видалити послугу</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				{% endfor %}
+				<tr>
+					<td></td>
+					<td colspan='3'>
+					  <a role="button" href="{% url 'add_product' %}"
+					    class="btn btn-primary btn-lg btn-block">
+						 Додати нову послугу
+					  </a>
+					</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	{% endif %}
 	</div>
-	
-	<!--JavaScript-->
-	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-</body>
-</html>
+</div>
+{% endblock content %}
+
