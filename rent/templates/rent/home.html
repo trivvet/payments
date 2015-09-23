@@ -34,7 +34,7 @@
 							<th>Постачальник</th>
 							<th>Дата оновлення</th>
 							<th>Показники лічильника</th>
-							<th>Заборгованість</th>
+							<th>Стан розрахунку</th>
 							<th>Дії</th>
 						</tr>
 					</thead>
@@ -49,8 +49,16 @@
 								</a>
 							</td>
 							<td>{{ supply.date_change }}</td>
+							{% if supply.counter_1_name %}
 							<td>{{ supply.counter_1_name }}: {{ supply.counter_1_indicator }}</td>
-							<td><span style="color: green">{{ supply.arrears }}грн</span></td>
+							{% else %}
+							<td>Відсутній лічильник </td>
+							{% endif %}
+							<td><span style="color: 
+								{% if supply.arrears > 0 %}green
+								{% else %}red{% endif %}">
+									{{ supply.arrears }}грн
+								</span></td>
 							<td>
 								<div class="dropdown">
 									<button class="btn btn-default dropdown-toggle" 
@@ -62,12 +70,23 @@
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 										<li><a href="#">Діючі тарифи</a></li>
 										<li><a href="#">Оновити показники</a></li>
-										<li><a href="#">Видалити послугу</a></li>
+										<li><a href="{% url 'delete_product' supply.id %}">Видалити послугу</a></li>
 									</ul>
 								</div>
 							</td>
 						</tr>
 						{% endfor %}
+						<tr>
+							<td></td>
+							<td colspan='3'>
+							  <a role="button" href="{% url 'add_product' %}"
+							    class="btn btn-primary btn-lg btn-block">
+								 Додати нову послугу
+							  </a>
+							</td>
+							<td></td>
+							<td></td>
+						</tr>
 					</tbody>
 				</table>
 			{% endif %}
@@ -75,7 +94,7 @@
 		</div>
 		<!--Footer-->
 		<div class="row" id="footer">
-			<div class="col-sm-12">&copy; 2015 Сервіс Звірки Комунальних Платежів Версія 0.2.1А</div>
+			<div class="col-sm-12">&copy; 2015 Сервіс Звірки Комунальних Платежів Версія 0.2.2А</div>
 		</div>
 	</div>
 	
