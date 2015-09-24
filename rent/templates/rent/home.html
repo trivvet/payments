@@ -35,7 +35,16 @@
 					</td>
 					<td>{{ supply.date_change }}</td>
 					{% if supply.counter_1_name %}
-					<td>{{ supply.counter_1_name }}: {{ supply.counter_1_indicator }}</td>
+					<td>{{ supply.counter_1_name }}: {{ supply.counter_1_indicator }}
+					  {% if supply.counter_2_name %}
+					  <br>{{ supply.counter_2_name }}: {{ supply.counter_2_indicator }}
+					    {% if supply.counter_3_name %}
+					    <br>{{ supply.counter_3_name }}: {{ supply.counter_3_indicator }}
+					      {% if supply.counter_4_name %}
+					     <br>{{ supply.counter_4_name }}: {{ supply.counter_4_indicator }}
+					      {% endif %}
+					    {% endif %}
+					  {% endif %}</td>
 					{% else %}
 					<td>Відсутній лічильник </td>
 					{% endif %}

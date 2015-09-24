@@ -34,6 +34,13 @@ def add_product(request):
 		  data['provider_name'] = request.POST.get('provider_name', '').strip()
 		  provider_site = request.POST.get('provider_site', '').strip()
 		  data['provider_site'] = 'http://' + provider_site
+		  for i in range(1,5):
+			  counter_name = request.POST.get('counter_' + str(i) + '_name')
+			  counter_indicator = request.POST.get('counter_' + str(i) + '_indicator')
+			  print counter_name, counter_indicator
+			  if len(counter_name) > 0 and len(counter_indicator) > 0:
+				  data['counter_' + str(i) + '_name'] = counter_name
+				  data['counter_' + str(i) + '_indicator'] = int(counter_indicator)
 		  data['arrears'] = request.POST.get('arrears', '').strip()
 		  product = Supply(**data)
 		  product.save()
