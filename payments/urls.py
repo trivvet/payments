@@ -21,6 +21,7 @@ from rent import views
 urlpatterns = patterns('',
     url(r'^$', views.home, name='home'),
     url(r'^product/add/$', views.add_product, name='add_product'),
+    url(r'^product/(?P<pk>\d+)/edit_indexes/$', views.edit_indexes, name='edit_indexes'),
     url(r'^product/(?P<pk>\d+)/delete/$', views.delete_product, name='delete_product'),
     url(r'^admin/', include(admin.site.urls), name='admin')
 )

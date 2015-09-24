@@ -63,7 +63,7 @@
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 								<li><a href="#">Діючі тарифи</a></li>
-								<li><a href="#">Оновити показники</a></li>
+								<li><a href="{% url 'edit_indexes' supply.id %}">Оновити показники</a></li>
 								<li><a href="{% url 'delete_product' supply.id %}">Видалити послугу</a></li>
 							</ul>
 						</div>

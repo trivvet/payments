@@ -1,0 +1,110 @@
+{% extends "rent/base.html" %}
+
+{% block content %}
+<div class='row'>
+	<div class='col-sm-2'></div>
+	<div class="col-sm-10">
+		<h2>Оновлення показників</h2>
+	</div>
+</div>
+<div class='row'>
+  <div class='col-sm-offset-3 col-sm-9'>
+    <h3>{{ supply.product_name }}</h3>
+    <p>Постачальник послуг - {{ supply.provider_name }}</p>
+  </div>
+</div>
+<div class='row'>
+  <div class='col-sm-offset-3 col-sm-2'>
+    <p>Назва лічильника</p>
+  </div>
+  <div class='col-sm-2'>
+	<p>Попередні показники</p>
+  </div>
+  <div class='col-sm-2'>
+	<p>Нові показники</p>
+  </div>
+</div>
+<div class='row'>
+	<div class='col-sm-12'>
+		<form class="form-horizontal" action="{% url 'edit_indexes' supply.id %}"
+			method='post'>
+		  {% csrf_token %}
+		  <!-- Counter number 1 -->
+		  {% if supply.counter_1_name %}
+		  <div class='form-group'>
+		    <div class='col-sm-offset-3 col-sm-2'>
+			  <p>{{ supply.counter_1_name }}</p>
+			</div>
+			<div class='col-sm-2'>
+			  <p>{{ supply.counter_1_indicator }}</p>
+			</div>
+			<div class='col-sm-2'>
+			  <input class="form-control" placeholder="Показник"
+			    name="counter_1_indicator">
+		    </div>
+		  </div>
+		  {% endif %}
+		  <!-- Counter number 2 -->
+		  {% if supply.counter_2_name %}
+		  <div class='form-group'>
+		    <div class='col-sm-offset-3 col-sm-2'>
+			  <p>{{ supply.counter_2_name }}</p>
+			</div>
+			<div class='col-sm-2'>
+			  <p>{{ supply.counter_2_indicator }}</p>
+			</div>
+			<div class='col-sm-2'>
+			  <input class="form-control" placeholder="Показник"
+			    name="counter_2_indicator">
+		    </div>
+		  </div>
+		  {% endif %}
+		  <!-- Counter number 3 -->
+		  {% if supply.counter_3_name %}
+		  <div class='form-group'>
+		    <div class='col-sm-offset-3 col-sm-2'>
+			  <p>{{ supply.counter_3_name }}</p>
+			</div>
+			<div class='col-sm-2'>
+			  <p>{{ supply.counter_3_indicator }}</p>
+			</div>
+			<div class='col-sm-2'>
+			  <input class="form-control" placeholder="Показник"
+			    name="counter_3_indicator">
+		    </div>
+		  </div>
+		  {% endif %}
+		  <!-- Counter number 4 -->
+		  {% if supply.counter_4_name %}
+		  <div class='form-group'>
+		    <div class='col-sm-offset-3 col-sm-2'>
+			  <p>{{ supply.counter_4_name }}</p>
+			</div>
+			<div class='col-sm-2'>
+			  <p>{{ supply.counter_4_indicator }}</p>
+			</div>
+			<div class='col-sm-2'>
+			  <input class="form-control" placeholder="Показник"
+			    name="counter_4_indicator">
+		    </div>
+		  </div>
+		  {% endif %}
+		  <div class="form-group">
+		    <label for="inputArrears" class="col-sm-3 control-label">Стан розрахунку</label>
+		    <div class="col-sm-9">
+		      <input type="text" class="form-control" id="inputArrears"
+				name='arrears' placeholder="Введіть наявний стан розрахунку в грн">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-3 col-sm-9">
+		      <button type="submit" class="btn btn-primary"
+				name='save_button'>Зберегти</button>
+		      <button type="submit" class="btn btn-link"
+		        name='cancel_button'>Скасувати</button>
+		    </div>
+		  </div>
+		</form>
+	</div>
+</div>
+{% endblock content %}

@@ -76,7 +76,8 @@ class Supply(models.Model):
 	def __unicode__(self):
 		return u"%s" % self.product_name
 		
-#class Indexes(models.Model):
-	#class Meta(object):
-		#verbose_name=u'Показники'
-		#verbose_name_plural=u'Показники'
+	
+	
+		
+	
+	
