@@ -11,6 +11,7 @@
   <div class='col-sm-offset-3 col-sm-9'>
     <h3>{{ supply.product_name }}</h3>
     <p>Постачальник послуг - {{ supply.provider_name }}</p>
+    <p>Дані станом на - {{ supply.date_change | date:"d.m.Y" }}р</p>
   </div>
 </div>
 <div class='row'>
@@ -93,7 +94,8 @@
 		    <label for="inputArrears" class="col-sm-3 control-label">Стан розрахунку</label>
 		    <div class="col-sm-9">
 		      <input type="text" class="form-control" id="inputArrears"
-				name='arrears' placeholder="Введіть наявний стан розрахунку в грн">
+				name='arrears' placeholder="Введіть наявний стан розрахунку в грн"
+				value="{{ supply.arrears }}">
 		    </div>
 		  </div>
 		  <div class="form-group">
