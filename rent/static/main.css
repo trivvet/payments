@@ -12,3 +12,6 @@ h2 {
 select, input {
 	max-width: 500px;
 }
+td {
+	font-size: 16px;
+}

@@ -11,7 +11,8 @@ import pdb
 def home(request):
 	if Supply.objects.count() > 0:
 		quantity = Supply.objects.distinct('product_name').count()
-		supplies = Supply.objects.order_by('product_name', 'id').reverse()[0:quantity]
+		supplies = Supply.objects.distinct('product_name').\
+		  order_by('product_name', 'id').reverse()[0:quantity] 
 		return render(request, 'rent/home.html', {'supplies': supplies})
 	else: 
 		return render(request, 'rent/home.html', {})
@@ -36,6 +37,8 @@ def add_product(request):
 		  if product_name not in name_of_product:
 			errors['product_name'] = u"Будь ласка оберіть конкретну послугу"
 		  else:
+			if Supply.objects.filter(product_name=name_of_product[product_name]).count() > 0:
+			  errors['product_name']= u"Ви вже додали дану послугу, виберіть іншу"
 			data['product_name'] = name_of_product[product_name]
 		  provider_name = request.POST.get('provider_name', '').strip()
 		  data['provider_name'] = provider_name
@@ -89,7 +92,7 @@ def edit_indexes(request, pk):
 		  supply = Supply.objects.get(id=pk)
 		  data = {}
 		  errors = {}
-		  data['id_old'] = supply.product_name
+		  data['id'] = supply.id
 		  data['product_name'] = supply.product_name
 		  data['provider_name'] = supply.provider_name
 		  data['provider_site'] = supply.provider_site
@@ -110,11 +113,12 @@ def edit_indexes(request, pk):
 			  errors['arrears'] = u"Будь-ласка введіть стан розрахунку"
 		  else:
 			  try:
-				  arrears = int(arrears)
+				  arrears = float(arrears)
 				  data['arrears'] = arrears
 			  except:
 				  errors['arrears'] = u"Будь-ласка введіть число"
 		  if not errors:
+		    data['id'] = None
 		    product = Supply(**data)
 		    product.save()
 		    return HttpResponseRedirect(reverse('home'))
@@ -125,6 +129,12 @@ def edit_indexes(request, pk):
 		supply = Supply.objects.get(id=pk)
 		return render(request, 'rent/edit_indexes.html', {'supply': supply})
 		
+def list_product(request, pk):
+	product = Supply.objects.get(pk=pk)
+	supplies = Supply.objects.filter(product_name=product.product_name)
+	return render(request, 'rent/list_product.html', {'supplies': supplies, 
+	  'product_name': product.product_name})
+
 def delete_product(request, pk):
 	if request.method == 'POST':
 		if request.POST.get('cancel_button') is not None:

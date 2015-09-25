@@ -3,19 +3,10 @@
 {% block content %}		
 <div class="row">
 	<div class="col-sm-12">
-		{% if not supplies %}
-		<div class="jumbotron">
-			<h1>Додай нову послугу</h1>
-			<p>Для того щоб скористатись сервісом, потрібно додати першу послугу</p>
-			<p><a class="btn btn-primary btn-lg" 
-				href="{% url 'add_product' %}" role="button">Додати</a>
-			</p>
-		</div>
-		{% else %}
+		<h2>Історія показників {{ product_name }}</h2>
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>Назва послуги</th>
 					<th>Постачальник</th>
 					<th>Показники лічильника</th>
 					<th>Дата оновлення</th>
@@ -26,9 +17,6 @@
 			<tbody>
 				{% for supply in supplies %}
 				<tr>
-					<td><a href="{% url 'list_product' supply.id %}">
-						{{ supply.product_name }}</a>
-					</td>
 					<td>
 						<a target="__blank"
 							href="{{ supply.provider_site }}">
@@ -36,8 +24,7 @@
 						</a>
 					</td>
 					{% if supply.counter_1_name %}
-					<td><a href="{% url 'edit_indexes' supply.id %}">
-					  {{ supply.counter_1_name }}: {{ supply.counter_1_indicator }}
+					<td>{{ supply.counter_1_name }}: {{ supply.counter_1_indicator }}
 					  {% if supply.counter_2_name %}
 					  <br>{{ supply.counter_2_name }}: {{ supply.counter_2_indicator }}
 					    {% if supply.counter_3_name %}
@@ -46,11 +33,11 @@
 					     <br>{{ supply.counter_4_name }}: {{ supply.counter_4_indicator }}
 					      {% endif %}
 					    {% endif %}
-					  {% endif %}</a></td>
+					  {% endif %}</td>
 					{% else %}
 					<td>Відсутній лічильник </td>
 					{% endif %}
-					<td>{{ supply.date_change | date:"d.m.Y" }}</td>
+					<td>{{ supply.date_change }}</td>
 					<td><span style="color: 
 						{% if supply.arrears > 0 %}green
 						{% elif supply.arrears < 0 %}red{% endif %}">
@@ -75,10 +62,7 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		<a role='button' href="{% url 'add_product' %}" class='btn btn-primary btn-lg'>
-		  Додати нову послугу
-		</a>
-	{% endif %}
+		<a href='{% url 'home' %}' class='btn btn-default' role='button'>На головну</a>
 	</div>
 </div>
 {% endblock content %}
