@@ -31,7 +31,7 @@
 					</td>
 					<td>
 						<a target="__blank"
-							href="{{ supply.provider_site }}">
+							href="http://{{ supply.provider_site }}">
 							{{ supply.provider_name }}
 						</a>
 					</td>
@@ -65,7 +65,16 @@
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-								<li><a href="#">Діючі тарифи</a></li>
+								<li><a target='__blank' href="
+								  {% if supply.provider_name == 'Хмельницькводоканал' %}
+								  http://water.km.ua/index.php?item=109&item_id=37
+								  {% elif supply.provider_name == 'Хмельницькобленерго' %}
+								  http://www.hoe.com.ua/index_21.html 
+								  {% elif supply.provider_name == 'Хмельницькгаз' %}
+								  http://km.104.ua/ua/services/zaplatiti-za-gaz/gas-cost
+								  {% elif supply.provider_name == 'Спецкомунтранс' %}
+								  http://skt.km.ua/index.php?menu=12
+								  {% endif %}">Діючі тарифи</a></li>
 								<li><a href="{% url 'edit_indexes' supply.id %}">Оновити показники</a></li>
 								<li><a href="{% url 'delete_product' supply.id %}">Видалити послугу</a></li>
 							</ul>

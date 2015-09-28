@@ -141,10 +141,21 @@ def delete_product(request, pk):
 		  return HttpResponseRedirect(reverse('home'))
 		else:
 		  name_of_product = Supply.objects.get(id=pk).product_name
-		  print name_of_product
 		  product = Supply.objects.filter(product_name=name_of_product)
 		  product.delete()
 		  return HttpResponseRedirect(reverse('home'))
 	else:
 		product = Supply.objects.get(id=pk)
 		return render(request, 'rent/confirm_delete_product.html', {'product': product})
+		
+def delete_index(request, pk):
+	if request.method == 'POST':
+		if request.POST.get('cancel_button') is not None:
+		  return HttpResponseRedirect(reverse('home'))
+		else:
+		  product = Supply.objects.get(id=pk)
+		  product.delete()
+		  return HttpResponseRedirect(reverse('home'))
+	else:
+		product = Supply.objects.get(id=pk)
+		return render(request, 'rent/confirm_delete_index.html', {'product': product})
