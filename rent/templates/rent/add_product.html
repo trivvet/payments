@@ -16,7 +16,7 @@
 		    <label for="inputProduct" class="col-sm-3 control-label">Послуга</label>
 		    <div class="col-sm-9">
 		      <select class="form-control" id='inputProduct' name='product_name'>
-				<option {% if not data.product_name %}selected{% endif %} 
+				<option {% if not data.product_name %}selected={% endif %} 
 				  value=''>Оберіть послугу</option>
 				<option {% if data.product_name == 'Водопостачання' %}
 				  selected{% endif %} value='water'>Водопостачання</option>
@@ -32,20 +32,53 @@
 			  <span class="help-block">{{ errors.product_name }}</span>
 		    </div>
 		  </div>
-		  <div class="form-group">
+		  <div class="form-group provider" {% if not data.product_name %}hidden{% endif %}>
 		    <label for="inputProvider" class="col-sm-3 control-label">Постачальник</label>
 		    <div class="col-sm-9">
-		      <input type="text" class="form-control" id="inputProvider" 
-				name='provider_name' placeholder="Введіть назву постачальника послуг"
-				value='{{ data.provider_name }}'>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label for="inputSiteProvider" class="col-sm-3 control-label">Сайт постачальника</label>
-		    <div class="col-sm-9">
-		      <input type="text" class="form-control" id="inputSiteProvider"
-				name='provider_site' placeholder="Введіть адресу сайту постачальника послуг"
-				value='{{ data.provider_site }}'>
+		      <p class='provider water' 
+		        {% if data.provider_name != 'Хмельницькводоканал' %}hidden{% endif %}>
+			    Міське комунальне підприємство "Хмельницькводоканал"<br>
+		        Адреса: м. Хмельницький, вул. Водопровідна, 75<br>
+		        Контакти: (0382) 78-75-30<br>
+		        Сайт підприємтсва:</p>
+		      <a class='provider_site water' href='http://water.km.ua' 
+		        target='__blank' 
+		        {% if data.provider_name != 'Хмельницькводоканал' %}hidden{% endif %}>
+		        www.water.km.ua</a>
+		      <p class='provider electricity' 
+			    {% if data.provider_name != 'Хмельницькобленерго' %}hidden{% endif %}>
+			    Публічне акціонерне товариство "Хмельницькобленерго"<br>
+		        Адреса: м. Хмельницький, вул. Храновського, 11а<br>
+		        Контакти: (0382) 78-78-59<br>
+		        Сайт підприємства:</p>
+		      <a class='provider_site electricity' href='http://oblenergo.km.ua/portal/' 
+		        target='__blank' 
+		        {% if data.provider_name != 'Хмельницькобленерго' %}hidden{% endif %}>
+		        www.oblenergo.km.ua</a>
+		      <p class='provider gas' 
+		        {% if data.provider_name != 'Хмельницькгаз' %}hidden{% endif %}>
+			    Регіональна газова компанія "Хмельницькгаз"<br>
+		        Адреса: м. Хмельницький, просп. Миру, 41<br>
+		        Контакти: (0382) 71-04-50<br>
+		        Сайт компанії:</p>
+		      <a class='provider_site gas' href='http://km.104.ua/ua/' 
+		        target='__blank' 
+		        {% if data.provider_name != 'Хмельницькгаз' %}hidden{% endif %}>
+		        www.km.104.ua</a>
+		      <p class='provider waste' 
+		        {% if data.provider_name != 'Спецкомунтранс' %}hidden{% endif %}>
+			    Хмельницьке комунальне підприємство "Спецкомунтранс"<br>
+		        Адреса: м. Хмельницький, Толстого, 1<br>
+		        Контакти: (0382) 65-70-05<br>
+		        Сайт підприємства:</p>
+		      <a class='provider_site waste' href='http://skt.km.ua/' 
+		        target='__blank' 
+		        {% if data.provider_name != 'Спецкомунтранс' %}hidden{% endif %}>
+		        www.skt.km.ua</a>
+		      <input type="hidden" class="form-control" id="inputProvider" 
+				name='provider_name' value='{{ data.provider_name }}'>
+			  <input type="hidden" class="form-control" id="inputSiteProvider"
+				name='provider_site' value='{{ data.provider_site }}'>
 		    </div>
 		  </div>
 		  <!-- Counter number 1 -->

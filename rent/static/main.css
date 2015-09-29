@@ -15,3 +15,15 @@ select, input {
 td {
 	font-size: 16px;
 }
+div.provider>div {
+	background-color: #FAFAD2;
+	max-width: 500px;
+}
+p.provider {
+	font-size: 16px;
+	color: #008080;
+	margin-bottom: 0;
+}
+a.provider_site {
+    font-size: 18px;
+}

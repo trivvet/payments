@@ -37,7 +37,7 @@
 					{% else %}
 					<td>Відсутній лічильник </td>
 					{% endif %}
-					<td>{{ supply.date_change }}</td>
+					<td>{{ supply.date_change | date:"d.m.Y" }}</td>
 					<td><span style="color: 
 						{% if supply.arrears > 0 %}green
 						{% elif supply.arrears < 0 %}red{% endif %}">
@@ -62,7 +62,6 @@
 								  {% elif supply.provider_name == 'Спецкомунтранс' %}
 								  http://skt.km.ua/index.php?menu=12
 								  {% endif %}">Діючі тарифи</a></li>
-								<li><a href="{% url 'edit_indexes' supply.id %}">Оновити показники</a></li>
 								<li><a href="{% url 'delete_index' supply.id %}">Видалити показник</a></li>
 							</ul>
 						</div>
