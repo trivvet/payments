@@ -81,12 +81,13 @@
 				name='provider_site' value='{{ data.provider_site }}'>
 		    </div>
 		  </div>
+		 
 		  <!-- Counter number 1 -->
-		  <div class='form-group 
-		    {% if errors.counter_1_indicator or errors.counter_1_name %}has-error{% endif %}'>
-		    <label for="inputCounter1" class='col-sm-3 control-label'>
-				Показники лічильника №1</label>
-		    <div class='col-sm-2'>
+		  <div class='form-group counter1
+		    {% if errors.counter_1_indicator or errors.counter_1_name %}has-error{% endif %}'
+		    {% if not data.counter_1_name or not data.counter_1_indicator %}
+		     hidden{% endif %}>
+		    <div class='col-sm-offset-3 col-sm-2'>
 			  <input class="form-control" id="inputCounter1" 
 			    placeholder="Назва лічильника" name="counter_1_name"
 			    value='{{ data.counter_1_name }}'>
@@ -97,14 +98,19 @@
 			    name="counter_1_indicator" value='{{ data.counter_1_indicator }}'>
 			  <span class="help-block">{{ errors.counter_1_indicator }}</span>
 		    </div>
+		    <div class='col-sm-1'>
+		      <button type='button' class='btn btn-danger' id='delete_counter_1'>
+		        Видалити
+		      </button>
+		    </div>
 		  </div>
 		  
 		  <!-- Counter number 2 -->
-		  <div class='form-group 
-		    {% if errors.counter_2_indicator or errors.counter_2_name %}has-error{% endif %}'>
-		    <label for="inputCounter2" class='col-sm-3 control-label'>
-				Показники лічильника №2</label>
-		    <div class='col-sm-2'>
+		  <div class='form-group counter2
+		    {% if errors.counter_2_indicator or errors.counter_2_name %}has-error{% endif %}'
+		    {% if not data.counter_2_name or not data.counter_2_indicator %}
+		      hidden{% endif %}>
+		    <div class='col-sm-offset-3 col-sm-2'>
 			  <input class="form-control" id="inputCounter2" 
 			    placeholder="Назва лічильника" name="counter_2_name"
 			    value='{{ data.counter_2_name }}'>
@@ -115,14 +121,19 @@
 			    name="counter_2_indicator" value='{{ data.counter_2_indicator }}'>
 			  <span class="help-block">{{ errors.counter_2_indicator }}</span>
 		    </div>
+		    <div class='col-sm-1'>
+		      <button type='button' class='btn btn-danger' id='delete_counter_2'>
+		        Видалити
+		      </button>
+		    </div>
 		  </div>
 		  
 		  <!-- Counter number 3 -->
-		  <div class='form-group 
-		    {% if errors.counter_3_indicator or errors.counter_3_name %}has-error{% endif %}'>
-		    <label for="inputCounter3" class='col-sm-3 control-label'>
-				Показники лічильника №3</label>
-		    <div class='col-sm-2'>
+		  <div class='form-group counter3
+		    {% if errors.counter_3_indicator or errors.counter_3_name %}has-error{% endif %}'
+		    {% if not data.counter_3_name or not data.counter_3_indicator %}
+		      hidden{% endif %}>
+		    <div class='col-sm-offset-3 col-sm-2'>
 			  <input class="form-control" id="inputCounter3" 
 			    placeholder="Назва лічильника" name="counter_3_name"
 			    value='{{ data.counter_3_name }}'>
@@ -133,14 +144,19 @@
 			    name="counter_3_indicator" value='{{ data.counter_3_indicator }}'>
 			  <span class="help-block">{{ errors.counter_3_indicator }}</span>
 		    </div>
+		    <div class='col-sm-1'>
+		      <button type='button' class='btn btn-danger' id='delete_counter_3'>
+		        Видалити
+		      </button>
+		    </div>
 		  </div>
 		  
 		  <!-- Counter number 4 -->
-		  <div class='form-group 
-		    {% if errors.counter_4_indicator or errors.counter_4_name %}has-error{% endif %}'>
-		    <label for="inputCounter1" class='col-sm-3 control-label'>
-				Показники лічильника №4</label>
-		    <div class='col-sm-2'>
+		  <div class='form-group counter4
+		    {% if errors.counter_4_indicator or errors.counter_4_name %}has-error{% endif %}'
+		    {% if not data.counter_4_name or not data.counter_4_indicator %}
+		      hidden{% endif %}>
+		    <div class='col-sm-offset-3 col-sm-2'>
 			  <input class="form-control" id="inputCounter4" 
 			    placeholder="Назва лічильника" name="counter_4_name"
 			    value='{{ data.counter_4_name }}'>
@@ -151,7 +167,24 @@
 			    name="counter_4_indicator" value='{{ data.counter_4_indicator }}'>
 			  <span class="help-block">{{ errors.counter_4_indicator }}</span>
 		    </div>
+		    <div class='col-sm-1'>
+		      <button type='button' class='btn btn-danger' id='delete_counter_4'>
+		        Видалити
+		      </button>
+		    </div>
 		  </div>
+		  
+		  <!-- Add Counters -->
+		  {% if data.product_name != 'Вивіз сміття' %}
+		    <div class='form-group'>
+			  <div class='col-sm-offset-3 col-sm-9'>
+			    <button type="button" class="btn btn-success" id="add_counter"
+			      disabled>
+					Додати лічильник
+				</button>
+			  </div>
+			</div>
+		  {% endif %}
 		  
 		  <!-- Arrears -->
 		  <div class="form-group {% if errors.arrears %}has-error{% endif %}">
@@ -159,7 +192,7 @@
 		    <div class="col-sm-9">
 		      <input type="text" class="form-control" id="inputArrears"
 				name='arrears' placeholder="Введіть наявний стан розрахунку в грн"
-				value='{{ data.arrears }}'>
+				value='{{ data.arrears }}' disabled>
 			   <span class="help-block">{{ errors.arrears }}</span>
 		    </div>
 		  </div>
