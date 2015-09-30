@@ -179,7 +179,7 @@
 		    <div class='form-group'>
 			  <div class='col-sm-offset-3 col-sm-9'>
 			    <button type="button" class="btn btn-success" id="add_counter"
-			      disabled>
+			      {% if not data.product_name %}disabled{% endif %}>
 					Додати лічильник
 				</button>
 			  </div>
@@ -192,7 +192,8 @@
 		    <div class="col-sm-9">
 		      <input type="text" class="form-control" id="inputArrears"
 				name='arrears' placeholder="Введіть наявний стан розрахунку в грн"
-				value='{{ data.arrears }}' disabled>
+				value='{{ data.arrears }}' 
+				{% if not data.product_name %}disabled{% endif %}>
 			   <span class="help-block">{{ errors.arrears }}</span>
 		    </div>
 		  </div>

@@ -38,10 +38,10 @@
 			  <p>{{ supply.counter_1_name }}</p>
 			</div>
 			<div class='col-sm-2'>
-			  <p>{{ supply.counter_1_indicator }}</p>
+			  <p id='counter_before1'>{{ supply.counter_1_indicator }}</p>
 			</div>
 			<div class='col-sm-2'>
-			  <input class="form-control" placeholder="Показник"
+			  <input class="form-control counter_value" placeholder="Показник"
 			    name="counter_1_indicator">
 		    </div>
 		  </div>
@@ -94,9 +94,12 @@
 		  <div class="form-group">
 		    <label for="inputArrears" class="col-sm-3 control-label">Стан розрахунку</label>
 		    <div class="col-sm-9">
-		      <input type="text" class="form-control" id="inputArrears"
-				name='arrears' placeholder="Введіть наявний стан розрахунку в грн"
-				value="{{ supply.arrears }}">
+		      <p id='arrears'
+		      style='color: {% if supply.arrears|add:0 > 0 %}green
+		      {% elif sypply.arrears|add:0 < 0 %}red{% endif %}'>
+		      {{ supply.arrears }}</p>
+		      <input type="hidden" class="form-control" id="inputArrears"
+				name='arrears' value="{{ supply.arrears }}">
 		    </div>
 		  </div>
 		  <div class="form-group">

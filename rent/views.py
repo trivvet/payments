@@ -70,7 +70,7 @@ def add_product(request):
 			errors['arrears'] = u'Будь-ласка введіть стан розрахунку'
 		  else:
 		    try:
-			  arrears = int(arrears)
+			  arrears = float(arrears)
 			  data['arrears'] = arrears
 		    except:
 			  errors['arrears'] = u"Будь-ласка введіть число"

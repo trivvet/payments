@@ -69,6 +69,16 @@ function initAddForm() {
   });
 }
 
+function initEditForm() {
+  $('input.counter_value').keyup(function(event) {
+    if($(this).val() > $('#counter_before1').text()) {
+      $('#arrears').text(Number(($(this).val()-$('#counter_before1').text()) * 0.45) + 
+      Number($('#inputArrears').val()));
+    };
+  });
+}
+
 $(document).ready(function() {
   initAddForm();
+  initEditForm();
 })
