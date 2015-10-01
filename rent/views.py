@@ -65,6 +65,7 @@ def add_product(request):
 				print 3
 				errors['counter_' + str(i) + '_indicator'] = u"Будь-ласка введіть покази лічильника"
 				data['counter_' + str(i) + '_name'] = counter_name
+		  data['tariff'] = request.POST.get('tariff', '').strip()
 		  arrears = request.POST.get('arrears', '').strip()
 		  if not arrears:
 			errors['arrears'] = u'Будь-ласка введіть стан розрахунку'

@@ -2,32 +2,43 @@ function initAddForm() {
   $('option').click(function(event) {
     var option = $(this);
     $('div.provider').show();
+    $('div.tariff').show();
     $('#add_counter').removeAttr('disabled');
     $('#inputArrears').removeAttr('disabled');
     $('p.provider').hide();
+    $('p.tariff').hide();
     $('a.provider_site').hide();
-    switch($(this).val()) {
+    switch($(this).val()) { 
 	  case 'water':
-	  case 'sewerage':
-	    $('.water').show();
+		$('.water').show();
 	    $('#inputProvider').val('Хмельницькводоканал');
 	    $('#inputSiteProvider').val('water.km.ua');
+	    $('#inputTariff').val('4.25');
+	    break;
+	  case 'sewerage':
+	    $('.sewerage').show();
+	    $('#inputProvider').val('Хмельницькводоканал');
+	    $('#inputSiteProvider').val('water.km.ua');
+	    $('#inputTariff').val('4.13');
 	    break;
 	  case 'electricity':
 	    $('.electricity').show();
 	    $('#inputProvider').val('Хмельницькобленерго');
 	    $('#inputSiteProvider').val('oblenergo.km.ua/portal/');
+	    $('#inputTariff').val('0.456');
 	    break;
 	  case 'gas':
 		$('.gas').show();
 		$('#inputProvider').val('Хмельницькгаз');
 		$('#inputSiteProvider').val('km.104.ua/ua/');
+		$('#inputTariff').val('7.188');
 		break;
       case 'waste':
         $('.waste').show()
         $('#inputProvider').val('Спецкомунтранс');
         $('#inputSiteProvider').val('skt.km.ua/');
         $('#add_counter').attr('disabled', 'true');
+        $('#inputTariff').val('8.60');
         break;
 	  default:
 	    $('div.provider').hide();
@@ -71,9 +82,51 @@ function initAddForm() {
 
 function initEditForm() {
   $('input.counter_value').keyup(function(event) {
-    if($(this).val() > $('#counter_before1').text()) {
-      $('#arrears').text(Number(($(this).val()-$('#counter_before1').text()) * 0.45) + 
-      Number($('#inputArrears').val()));
+    var current = $('#inputArrears').val();
+    var account = parseFloat(current - Number(($(this).val()-$('#counter_before1').text()) 
+      * 0.45)).toFixed(2);
+    if($(this).val() > Number($('#counter_before1').text())) {
+      $('#arrears').text(account + ' грн');
+      if(account > 0) {
+	    $('#arrears').css('color', 'green');
+	  } else if (account < 0) {
+	    $('#arrears').css('color', 'red');
+	  } else if (current == 0) {
+        $('#arrears').css('color', 'black');
+      };
+    } else if ($(this).val() == Number($('#counter_before1').text())) {
+      $('#arrears').text(parseFloat(Number($('#inputArrears').val())).toFixed(2) + ' грн');
+      if(account > 0) {
+	    $('#arrears').css('color', 'green');
+	  } else if (account < 0) {
+	    $('#arrears').css('color', 'red');
+	  } else if (current == 0) {
+        $('#arrears').css('color', 'black');
+      };
+    };
+  });
+  $('input.counter_value').click(function(event) {
+    var current = $('#inputArrears').val();
+    var account = parseFloat(current - Number(($(this).val()-$('#counter_before1').text()) 
+      * 0.45)).toFixed(2);
+    if($(this).val() > Number($('#counter_before1').text())) {
+      $('#arrears').text(account + ' грн');
+      if(account > 0) {
+	    $('#arrears').css('color', 'green');
+	  } else if (account < 0) {
+	    $('#arrears').css('color', 'red');
+	  } else if (current == 0) {
+        $('#arrears').css('color', 'black');
+      };
+    } else if ($(this).val() == Number($('#counter_before1').text())) {
+      $('#arrears').text(parseFloat(Number($('#inputArrears').val())).toFixed(2) + ' грн');
+      if(account > 0) {
+	    $('#arrears').css('color', 'green');
+	  } else if (account < 0) {
+	    $('#arrears').css('color', 'red');
+	  } else if (current == 0) {
+        $('#arrears').css('color', 'black');
+      };
     };
   });
 }

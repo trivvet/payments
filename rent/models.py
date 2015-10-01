@@ -62,8 +62,13 @@ class Supply(models.Model):
 		verbose_name=u'Показники Лічильника №4',
 		blank=True,
 		null=True)
+	tariff = models.DecimalField(
+		verbose_name=u'Тариф',
+		max_digits=6,
+		decimal_places=3,
+		blank=False)
 	arrears = models.DecimalField(
-		verbose_name=u'Заборгованість',
+		verbose_name=u'Баланс на рахунку',
 		max_digits=6,
 		decimal_places=2,
 		blank=False)

@@ -20,10 +20,16 @@ div.provider>div {
 	background-color: #FAFAD2;
 	max-width: 500px;
 }
-p.provider {
+div.tariff>div {
+	margin-left: 14px;
+	background-color: #FAFAD2;
+	max-width: 500px;
+}
+p.provider, p.tariff {
 	font-size: 16px;
 	color: #008080;
 	margin-bottom: 0;
+	padding-top: 5px;
 }
 a.provider_site {
     font-size: 18px;

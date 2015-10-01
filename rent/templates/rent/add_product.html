@@ -35,13 +35,13 @@
 		  <div class="form-group provider" {% if not data.product_name %}hidden{% endif %}>
 		    <label for="inputProvider" class="col-sm-3 control-label">Постачальник</label>
 		    <div class="col-sm-9">
-		      <p class='provider water' 
+		      <p class='provider water sewerage' 
 		        {% if data.provider_name != 'Хмельницькводоканал' %}hidden{% endif %}>
 			    Міське комунальне підприємство "Хмельницькводоканал"<br>
 		        Адреса: м. Хмельницький, вул. Водопровідна, 75<br>
 		        Контакти: (0382) 78-75-30<br>
 		        Сайт підприємтсва:</p>
-		      <a class='provider_site water' href='http://water.km.ua' 
+		      <a class='provider_site water sewerage' href='http://water.km.ua' 
 		        target='__blank' 
 		        {% if data.provider_name != 'Хмельницькводоканал' %}hidden{% endif %}>
 		        www.water.km.ua</a>
@@ -186,13 +186,38 @@
 			</div>
 		  {% endif %}
 		  
+		  <!-- Teriff -->
+		  <div class="form-group tariff" 
+		    {% if not data.tariff %}hidden{% endif %}>
+		    <label for="inputTarrif" class="col-sm-3 control-label">Тариф</label>
+		    <div class="col-sm-9">
+		      <p class="tariff water" 
+		        {% if data.product_name != 'Водопостачання' %}hidden{% endif %}>
+		        4,25 грн за 1м3 води</p>
+		      <p class="tariff sewerage" 
+		        {% if data.product_name != 'Каналізація' %}hidden{% endif %}>
+		        4,13 грн за 1м3 стоків</p>
+		      <p class="tariff electricity" 
+		        {% if data.product_name != 'Електропостачання' %}hidden{% endif %}>
+		        0,456 грн за 1кВт електроенергії</p>
+		      <p class="tariff gas" 
+		        {% if data.product_name != 'Газопостачання' %}hidden{% endif %}>
+		        7,188 грн за 1м3 газу</p>
+		      <p class="tariff waste" 
+		        {% if data.product_name != 'Вивіз сміття' %}hidden{% endif %}>
+		        8,60 за одну людину на місяць</p>
+		      <input type='hidden' id="inputTariff" name="tariff"
+		        value='{{ data.tariff }}'> 
+		    </div>
+		  </div>
+		  
 		  <!-- Arrears -->
 		  <div class="form-group {% if errors.arrears %}has-error{% endif %}">
 		    <label for="inputArrears" class="col-sm-3 control-label">Стан розрахунку</label>
 		    <div class="col-sm-9">
-		      <input type="text" class="form-control" id="inputArrears"
-				name='arrears' placeholder="Введіть наявний стан розрахунку в грн"
-				value='{{ data.arrears }}' 
+		      <input type="text" id="inputArrears" name='arrears' 
+		        placeholder="Введіть поточний баланс рахунку в грн"
+				value='{{ data.arrears }}' class='form-control'
 				{% if not data.product_name %}disabled{% endif %}>
 			   <span class="help-block">{{ errors.arrears }}</span>
 		    </div>
