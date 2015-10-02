@@ -1,10 +1,23 @@
+function initDateField() {
+	$('#inputDate').wrap("<div class='input-group date' id='div_id_date'>\
+		</div>").after("<span class='input-group-addon'>\
+		<span class='glyphicon glyphicon-calendar'></span></span>");
+	$('#div_id_date').datetimepicker({
+		'format': 'YYYY-MM-DD'
+	}).on('dp.hide', function(event) {
+		$(this).blur();
+	});
+}
+
 function initAddForm() {
   $('option').click(function(event) {
     var option = $(this);
     $('div.provider').show();
     $('div.tariff').show();
     $('#add_counter').removeAttr('disabled');
+    $('#inputDate').removeAttr('disabled');
     $('#inputArrears').removeAttr('disabled');
+    $('#inputAccount').removeAttr('disabled');
     $('p.provider').hide();
     $('p.tariff').hide();
     $('a.provider_site').hide();
@@ -42,7 +55,11 @@ function initAddForm() {
         break;
 	  default:
 	    $('div.provider').hide();
+	    $('div.tariff').hide();
+	    $('#add_counter').attr('disabled', 'true');
         $('#inputArrears').attr('disabled', 'true');
+        $('#inputDate').attr('disabled', 'true');
+        $('#inputAccount').attr('disabled', 'true');
 	    break;
 	};
   });
@@ -134,4 +151,5 @@ function initEditForm() {
 $(document).ready(function() {
   initAddForm();
   initEditForm();
+  initDateField();
 })

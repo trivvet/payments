@@ -67,16 +67,18 @@ class Supply(models.Model):
 		max_digits=6,
 		decimal_places=3,
 		blank=False)
+	account = models.IntegerField(
+		verbose_name=u'Номер рахунку',
+		blank=True,
+		null=True)
 	arrears = models.DecimalField(
 		verbose_name=u'Баланс на рахунку',
 		max_digits=6,
 		decimal_places=2,
 		blank=False)
 	date_change = models.DateField(
-		auto_now_add=True,
-		verbose_name=u'Дата останньої зміни',
-		editable=False,
-		null=True)
+		auto_now_add=False,
+		verbose_name=u'Дата')
 		
 	def __unicode__(self):
 		return u"%s" % self.product_name

@@ -211,6 +211,29 @@
 		    </div>
 		  </div>
 		  
+		  <!-- Date of Change -->
+		  <div class="form-group {% if errors.date_change %}has-error{% endif %}">
+		    <label for="inputDate" class="col-sm-3 control-label">Дата</label>
+		    <div class="col-sm-9">
+		      <input type="text" id="inputDate" name="date"
+		        class="form-control" value="{% now "Y-m-d" %}"
+		        {% if not data.product_name %}disabled{% endif %}>
+		      <span class="help-block">{{ errors.date_change }}</span>
+		    </div>
+		  </div>
+		  
+		  <!-- Account -->
+		  <div class="form-group {% if errors.account %}has-error{% endif %}">
+			<label for="inputAccount" class="col-sm-3 control-label">Розрахунковий рахунок</label>
+			<div class="col-sm-9">
+				<input type="text" id="inputAccount" name="account"
+				  class="form-control" placeholder="Введіть номер вашого розрахункового рахунку"
+				  value="{{ data.account }}"
+				  {% if not data.product_name %}disabled{% endif %}>
+				<span class="help-block">{{ errors.account }}</span>
+			</div>
+		  </div>
+		  
 		  <!-- Arrears -->
 		  <div class="form-group {% if errors.arrears %}has-error{% endif %}">
 		    <label for="inputArrears" class="col-sm-3 control-label">Стан розрахунку</label>

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from datetime import date, datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
@@ -9,81 +10,103 @@ import pdb
 # Create your views here.
 
 def home(request):
-	if Supply.objects.count() > 0:
-		quantity = Supply.objects.distinct('product_name').count()
-		supplies = Supply.objects.distinct('product_name').\
-		  order_by('product_name', 'id').reverse()[0:quantity] 
-		return render(request, 'rent/home.html', {'supplies': supplies})
-	else: 
-		return render(request, 'rent/home.html', {})
+  if Supply.objects.count() > 0:
+    quantity = Supply.objects.distinct('product_name').count()
+    supplies = Supply.objects.distinct('product_name').\
+    order_by('product_name', 'id').reverse()[0:quantity] 
+    return render(request, 'rent/home.html', {'supplies': supplies})
+  else:
+	  return render(request, 'rent/home.html', {})
 	
 def add_product(request):
-	if request.method == 'POST':
-		if request.POST.get('cancel_button') is not None:
-		  return HttpResponseRedirect(reverse('home'))
-		elif request.POST.get('add_button') is not None:
-		  data = {}
-		  errors = {}
-		  name_of_product = {
-		    'water': u'Водопостачання',
-		    'sewerage': u'Каналізація',
-		    'electricity': u'Електропостачання',
-		    'gas': u'Газопостачання',
-		    'waste': u'Вивіз сміття'
-		  }
-		  product_name = request.POST.get('product_name', '').strip()
-		  if not product_name:
-			errors['product_name'] = u"Будь-ласка оберіть послугу"
-		  if product_name not in name_of_product:
-			errors['product_name'] = u"Будь ласка оберіть конкретну послугу"
-		  else:
-			if Supply.objects.filter(product_name=name_of_product[product_name]).count() > 0:
-			  errors['product_name']= u"Ви вже додали дану послугу, виберіть іншу"
-			data['product_name'] = name_of_product[product_name]
-		  provider_name = request.POST.get('provider_name', '').strip()
-		  data['provider_name'] = provider_name
-		  provider_site = request.POST.get('provider_site', '').strip()
-		  data['provider_site'] = provider_site
-		  for i in range(1,5):
-			counter_name = request.POST.get('counter_' + str(i) + '_name')
-			counter_indicator = request.POST.get('counter_' + str(i) + '_indicator')
-			if counter_name and counter_indicator:
-				data['counter_' + str(i) + '_name'] = counter_name
-				try:
-					counter_indicator = int(counter_indicator)
-					data['counter_' + str(i) + '_indicator'] = int(counter_indicator)
-				except:
-					errors['counter_' + str(i) + '_indicator'] = u"Будь-ласка введіть ціле число"
-			elif (not counter_name) and counter_indicator:
-				errors['counter_' + str(i) + '_name'] = u"Будь-ласка введіть назву лічильника"
-				try:
-					counter_indicator = int(counter_indicator)
-					data['counter_' + str(i) + '_indicator'] = int(counter_indicator)
-				except:
-					errors['counter_' + str(i) + '_indicator'] = u"Будь-ласка введіть ціле число"
-			elif counter_name and not counter_indicator:
-				print 3
-				errors['counter_' + str(i) + '_indicator'] = u"Будь-ласка введіть покази лічильника"
-				data['counter_' + str(i) + '_name'] = counter_name
-		  data['tariff'] = request.POST.get('tariff', '').strip()
-		  arrears = request.POST.get('arrears', '').strip()
-		  if not arrears:
-			errors['arrears'] = u'Будь-ласка введіть стан розрахунку'
-		  else:
-		    try:
-			  arrears = float(arrears)
-			  data['arrears'] = arrears
-		    except:
-			  errors['arrears'] = u"Будь-ласка введіть число"
-		  if not errors:
-		    product = Supply(**data)
-		    product.save()
-		    return HttpResponseRedirect(reverse('home'))
-		  else:
-		    return render(request, 'rent/add_product.html', {'data': data,
-		      'errors': errors})
-	else:
-	  return render(request, 'rent/add_product.html', {})
+  if request.method == 'POST':
+    if request.POST.get('cancel_button') is not None:
+      return HttpResponseRedirect(reverse('home'))
+    elif request.POST.get('add_button') is not None:
+      data = {}
+      errors = {}
+      name_of_product = {
+        'water': u'Водопостачання',
+        'sewerage': u'Каналізація',
+        'electricity': u'Електропостачання',
+        'gas': u'Газопостачання',
+        'waste': u'Вивіз сміття'
+      }
+      product_name = request.POST.get('product_name', '').strip()
+      if not product_name:
+        errors['product_name'] = u"Будь-ласка оберіть послугу"
+      elif product_name not in name_of_product:
+        errors['product_name'] = u"Будь ласка оберіть конкретну послугу"
+      else:
+        if Supply.objects.filter(product_name=name_of_product[product_name]).count() > 0:
+          errors['product_name']= u"Ви вже додали дану послугу, виберіть іншу"
+        data['product_name'] = name_of_product[product_name]
+      provider_name = request.POST.get('provider_name', '').strip()
+      data['provider_name'] = provider_name
+      provider_site = request.POST.get('provider_site', '').strip()
+      data['provider_site'] = provider_site
+      for i in range(1,5):
+        counter_name = request.POST.get('counter_' + str(i) + '_name')
+        counter_indicator = request.POST.get('counter_' + str(i) + '_indicator')
+        if counter_name and counter_indicator:
+          data['counter_' + str(i) + '_name'] = counter_name
+          try:
+            counter_indicator = int(counter_indicator)
+            data['counter_' + str(i) + '_indicator'] = int(counter_indicator)
+          except:
+            errors['counter_' + str(i) + '_indicator'] = u"Будь-ласка введіть ціле число"
+        elif (not counter_name) and counter_indicator:
+          errors['counter_' + str(i) + '_name'] = u"Будь-ласка введіть назву лічильника"
+          try:
+            counter_indicator = int(counter_indicator)
+            data['counter_' + str(i) + '_indicator'] = int(counter_indicator)
+          except:
+            errors['counter_' + str(i) + '_indicator'] = u"Будь-ласка введіть ціле число"
+        elif counter_name and not counter_indicator:
+          errors['counter_' + str(i) + '_indicator'] = u"Будь-ласка введіть покази лічильника"
+          data['counter_' + str(i) + '_name'] = counter_name
+          
+      data['tariff'] = request.POST.get('tariff', '').strip()
+      # Date validation    
+      date_change = request.POST.get('date', '').strip()
+      if date_change:
+        try:
+          datetime.strptime(date_change, '%Y-%m-%d')
+        except Exception:
+          errors['date_change'] = u'Введіть коректний формат дати (напр. 2015-10-20)'
+        else:
+          data['date_change'] = date_change
+      else:
+        data['date_change'] = date.today().strftime('%Y-%m-%d')
+      
+      # Number of Account    
+      account = request.POST.get('account', '').strip()
+      try:
+        int(account)
+      except Exception:
+        if account:
+          errors['account'] = u"Будь-ласка введіть число"
+      else:
+        data['account'] = account
+            
+      arrears = request.POST.get('arrears', '').strip()
+      if not arrears:
+        errors['arrears'] = u'Будь-ласка введіть стан розрахунку'
+      else:
+        try:
+          arrears = float(arrears)
+          data['arrears'] = arrears
+        except:
+          errors['arrears'] = u"Будь-ласка введіть число"
+      if not errors:
+        product = Supply(**data)
+        product.save()
+        return HttpResponseRedirect(reverse('home'))
+      else:
+        return render(request, 'rent/add_product.html', {'data': data,
+          'errors': errors})
+  else:
+    return render(request, 'rent/add_product.html', {})
 		
 def edit_indexes(request, pk):
 	if request.method == 'POST':
