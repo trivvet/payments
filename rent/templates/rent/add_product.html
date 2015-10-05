@@ -8,12 +8,24 @@
 	</div>
 </div>
 <div class='row'>
+	{% if errors %}
+	<div class='col-sm-12'>
+		<div class="alert alert-danger" role="alert">
+			Виправте наступні помилки
+		</div>
+	</div>
+	{% endif %}
 	<div class='col-sm-12'>
 		<form class="form-horizontal" action="{% url 'add_product' %}"
 			method='post'>
 		  {% csrf_token %}
+		  <div class="form-group">
+		  	<div class="col-sm-offset-3 col-sm-9">
+		  		<p {% if errors %}style="color:red"{% endif %}}>* Обов’язкові поля</p>
+		  	</div>
+		  </div>
 		  <div class="form-group {% if errors.product_name %}has-error{% endif %}">
-		    <label for="inputProduct" class="col-sm-3 control-label">Послуга</label>
+		    <label for="inputProduct" class="col-sm-3 control-label">Послуга*</label>
 		    <div class="col-sm-9">
 		      <select class="form-control" id='inputProduct' name='product_name'>
 				<option {% if not data.product_name %}selected={% endif %} 
@@ -82,10 +94,57 @@
 		    </div>
 		  </div>
 		 
+		 <!-- Date of Change -->
+		  <div class="form-group {% if errors.date_change %}has-error{% endif %}">
+		    <label for="inputDate" class="col-sm-3 control-label">Дата*</label>
+		    <div class="col-sm-9">
+		      <input type="text" id="inputDate" name="date"
+		        class="form-control" value="{% now "Y-m-d" %}"
+		        {% if not data.product_name %}disabled{% endif %}>
+		      <span class="help-block">{{ errors.date_change }}</span>
+		    </div>
+		  </div>
+		  
+		  <!-- Account -->
+		  <div class="form-group {% if errors.account %}has-error{% endif %}">
+			<label for="inputAccount" class="col-sm-3 control-label">Розрахунковий рахунок</label>
+			<div class="col-sm-9">
+				<input type="text" id="inputAccount" name="account"
+				  class="form-control" placeholder="Введіть номер вашого розрахункового рахунку"
+				  value="{{ data.account }}"
+				  {% if not data.product_name %}disabled{% endif %}>
+				<span class="help-block">{{ errors.account }}</span>
+			</div>
+		  </div>
+		  
+		  <!-- Teriff -->
+		  <div class="form-group tariff" 
+		    {% if not data.tariff %}hidden{% endif %}>
+		    <label for="inputTarrif" class="col-sm-3 control-label">Тариф</label>
+		    <div class="col-sm-9">
+		      <p class="tariff water" 
+		        {% if data.product_name != 'Водопостачання' %}hidden{% endif %}>
+		        4,25 грн за 1м3 води</p>
+		      <p class="tariff sewerage" 
+		        {% if data.product_name != 'Каналізація' %}hidden{% endif %}>
+		        4,13 грн за 1м3 стоків</p>
+		      <p class="tariff electricity" 
+		        {% if data.product_name != 'Електропостачання' %}hidden{% endif %}>
+		        0,456 грн за 1кВт електроенергії</p>
+		      <p class="tariff gas" 
+		        {% if data.product_name != 'Газопостачання' %}hidden{% endif %}>
+		        7,188 грн за 1м3 газу</p>
+		      <p class="tariff waste" 
+		        {% if data.product_name != 'Вивіз сміття' %}hidden{% endif %}>
+		        8,60 за одну людину на місяць</p>
+		      <input type='hidden' id="inputTariff" name="tariff"
+		        value='{{ data.tariff }}'> 
+		    </div>
+		  </div>
 		  <!-- Counter number 1 -->
 		  <div class='form-group counter1
 		    {% if errors.counter_1_indicator or errors.counter_1_name %}has-error{% endif %}'
-		    {% if not data.counter_1_name or not data.counter_1_indicator %}
+		    {% if not data.counter_1_name and not data.counter_1_indicator %}
 		     hidden{% endif %}>
 		    <div class='col-sm-offset-3 col-sm-2'>
 			  <input class="form-control" id="inputCounter1" 
@@ -186,57 +245,9 @@
 			</div>
 		  {% endif %}
 		  
-		  <!-- Teriff -->
-		  <div class="form-group tariff" 
-		    {% if not data.tariff %}hidden{% endif %}>
-		    <label for="inputTarrif" class="col-sm-3 control-label">Тариф</label>
-		    <div class="col-sm-9">
-		      <p class="tariff water" 
-		        {% if data.product_name != 'Водопостачання' %}hidden{% endif %}>
-		        4,25 грн за 1м3 води</p>
-		      <p class="tariff sewerage" 
-		        {% if data.product_name != 'Каналізація' %}hidden{% endif %}>
-		        4,13 грн за 1м3 стоків</p>
-		      <p class="tariff electricity" 
-		        {% if data.product_name != 'Електропостачання' %}hidden{% endif %}>
-		        0,456 грн за 1кВт електроенергії</p>
-		      <p class="tariff gas" 
-		        {% if data.product_name != 'Газопостачання' %}hidden{% endif %}>
-		        7,188 грн за 1м3 газу</p>
-		      <p class="tariff waste" 
-		        {% if data.product_name != 'Вивіз сміття' %}hidden{% endif %}>
-		        8,60 за одну людину на місяць</p>
-		      <input type='hidden' id="inputTariff" name="tariff"
-		        value='{{ data.tariff }}'> 
-		    </div>
-		  </div>
-		  
-		  <!-- Date of Change -->
-		  <div class="form-group {% if errors.date_change %}has-error{% endif %}">
-		    <label for="inputDate" class="col-sm-3 control-label">Дата</label>
-		    <div class="col-sm-9">
-		      <input type="text" id="inputDate" name="date"
-		        class="form-control" value="{% now "Y-m-d" %}"
-		        {% if not data.product_name %}disabled{% endif %}>
-		      <span class="help-block">{{ errors.date_change }}</span>
-		    </div>
-		  </div>
-		  
-		  <!-- Account -->
-		  <div class="form-group {% if errors.account %}has-error{% endif %}">
-			<label for="inputAccount" class="col-sm-3 control-label">Розрахунковий рахунок</label>
-			<div class="col-sm-9">
-				<input type="text" id="inputAccount" name="account"
-				  class="form-control" placeholder="Введіть номер вашого розрахункового рахунку"
-				  value="{{ data.account }}"
-				  {% if not data.product_name %}disabled{% endif %}>
-				<span class="help-block">{{ errors.account }}</span>
-			</div>
-		  </div>
-		  
 		  <!-- Arrears -->
 		  <div class="form-group {% if errors.arrears %}has-error{% endif %}">
-		    <label for="inputArrears" class="col-sm-3 control-label">Стан розрахунку</label>
+		    <label for="inputArrears" class="col-sm-3 control-label">Стан розрахунку*</label>
 		    <div class="col-sm-9">
 		      <input type="text" id="inputArrears" name='arrears' 
 		        placeholder="Введіть поточний баланс рахунку в грн"

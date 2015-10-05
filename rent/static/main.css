@@ -37,6 +37,12 @@ a.provider_site {
 #arrears {
 	font-size: 25px;
 }
-#div_id_date {
+#div_id_date, .panel {
 	max-width: 500px;
+}
+.panel-body>p {
+	font-size: 16px;
+}
+.center {
+	text-align: center;
 }

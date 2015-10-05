@@ -9,12 +9,39 @@
 </div>
 <div class='row'>
   <div class='col-sm-offset-3 col-sm-9'>
-    <h3>{{ supply.product_name }}</h3>
-    <p>Постачальник послуг - {{ supply.provider_name }}</p>
-    <p>Сайт - {{ supply.provider_site }}</p>
-    <p>Дані станом на - {{ supply.date_change | date:"d.m.Y" }}р</p>
+    <div class="panel panel-info">
+    	<div class="panel-heading">
+    		<h3 class="panel-title">{{ supply.product_name }}</h3>
+    	</div>
+    	<div class="panel-body">
+    		<table class="table table-bordered">
+    			<tbody>
+    				<tr>
+    					<td>Постачальник послуг</td>
+    					<td><a href="http://{{ supply.provider_site }}">
+    						{{ supply.provider_name }}</a></td>
+    				</tr>
+    				<tr>
+    					<td>Останні зміни</td>
+    					<td>{{ supply.date_change | date:"d.m.Y" }}</td>
+    				</tr>
+    				<tr>
+    					<td>Тариф за одиницю</td>
+    					<td>{{ supply.tariff }}</td>
+    				</tr>
+    				<tr>
+    					<td>Номер рахунку</td>
+    					<td>
+    					{% if supply.account %}{{ supply.account }}
+    					{% else %} Дані відсутні {% endif %}</td>
+    				</tr>
+    			</tbody>
+    		</table>
+    	</div>
+    </div>
   </div>
 </div>
+{% if supply.counter_1_name %}
 <div class='row'>
   <div class='col-sm-offset-3 col-sm-2'>
     <p>Назва лічильника</p>
@@ -26,6 +53,7 @@
 	<p>Нові показники</p>
   </div>
 </div>
+{% endif %}
 <div class='row'>
 	<div class='col-sm-12'>
 		<form class="form-horizontal" action="{% url 'edit_indexes' supply.id %}"
@@ -92,12 +120,18 @@
 		  </div>
 		  {% endif %}
 		  <div class="form-group">
-		    <label for="inputArrears" class="col-sm-3 control-label">Стан рахунку</label>
-		    <div class="col-sm-9">
-		      <p id='arrears'
-		      style='color: {% if supply.arrears|add:0 > 0 %}green
-		      {% elif sypply.arrears|add:0 < 0 %}red{% endif %}'>
-		      {{ supply.arrears }} грн</p>
+		    <div class="col-sm-offset-3 col-sm-9">
+		      <div class="panel panel-primary">
+		      	<div class="panel-heading">
+		      		<h3 class="center panel-title">Стан рахунку</h3>
+		      	</div>
+		      	<div class="panel-body">
+		      		 <p id='arrears' class="center"
+		      			style='color: {% if supply.arrears > 0 %}green
+		      			{% elif supply.arrears < 0 %}red{% endif %}'>
+		      			{{ supply.arrears }} грн</p>
+		      	</div>
+		      </div>   
 		      <input type="hidden" class="form-control" id="inputArrears"
 				name='arrears' value="{{ supply.arrears }}">
 		    </div>
